@@ -1,0 +1,47 @@
+<html class="js-focus-visible" data-js-focus-visible=""><head>
+    <meta charset="UTF-8">
+    <title>Maintenance mode</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="">
+    <meta name="description" content="main_dec21 - Just another WordPress site">
+    <meta name="keywords" content="Maintenance Mode">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" id="frontend-css" href="https://localhost/eh/eh2second/var_installs/main_dec21/wp-content/plugins/wp-maintenance-mode/assets/css/style.min.css?ver=2.4.4" media="all">
+    <style type="text/css">
+        .wrap h1 { color: #a4b2bf; }
+        .wrap h2 { color: #000000; }
+        .background { background: url("{{full_background_url}}") no-repeat center top fixed; background-size: cover; }
+        p {
+            color: white;
+            font-size: 20px;
+            text-shadow:
+                    0.07em 0 black,
+                    0 0.07em black,
+                    -0.07em 0 black,
+                    0 -0.07em black;
+        }
+    </style>
+  </head>
+<body class="background">
+
+<div class="wrap">
+
+    <!-- Text -->
+    <h2><p><em><strong><span id="maintmessage" class="bg-gray-200 p-3 text-bold">{{message}}</span></strong></em></p></h2>
+
+
+
+
+
+
+</div>
+
+
+
+</body>
+<script>
+    setTimeout(function(){
+        window.location.reload(1);
+    }, 30000);
+</script></html>
+

@@ -1,0 +1,22 @@
+This is meant to let a user put their site into 'down' mode.
+
+Currently - it returns DTOValiid, which isn't super great.  We really want this to be copied as a ui DEMO cuz it
+is an awesome pattern. I want more of this, fast.
+
+Known Issues
+[ ] WpEngine is caching some pages
+
+Soon
+<!> [ ] Show more messaging 'like wpadmin' that the site is down
+<!> [ ] Show more messaging 'like wpadmin' that site will go down soon-ish.
+<!> [ ] Send message to slack
+<!> [ ] enable API response so can deploy
+There is a manual deploy step, yuck (for the image)
+Install script should move the image
+Set up tests
+
+
+
+
+
+
