@@ -1,19 +1,14 @@
 <?php
 declare(strict_types=1);
-namespace EtFramework19\MaintenanceMode;
+//namespace MaintenanceMode;
 
-use EtFramework19\MaintenanceMode\Models\MaintenanceMode_Funcs;
-use EtFramework19\MaintenanceMode\Models\MaintenanceMode_Model;
-use EtFramework19\Roles\CurrentUser;
+#use MaintenanceMode\Models\MaintenanceMode_Funcs;
+#use MaintenanceMode\Models\MaintenanceMode_Model;
+//use EtFramework19\Roles\CurrentUser;
 
 class MaintenanceMode_meets_Visitor {
     public CONST NUM_SECONDS_TYPICAL_SHUTDOWN = 60;
     private CONST BACKGROUND_IMAGE_NAME = 'MaintenanceMode.jpg';
-
-    /* call me super early */
-    public static function JustDoYourJob(): void {
-        add_action('init', [self::class,'_Bootup'], 1);
-    }
 
     public static function _Bootup(): void {
         //MaintenanceMode_Funcs::Shutdown_hard("temp", self::NUM_SECONDS_TYPICAL_SHUTDOWN, 'temp');
@@ -21,7 +16,7 @@ class MaintenanceMode_meets_Visitor {
             // Maybe shutdown
             $doShutdown = self::DoWeShutOffThisPersonEvenThoughWeAreInMaintMode();
             if ($doShutdown) {
-                if (self::doesDeserveHUmanReadableMessage()) {
+                if (self::doesDeserveHumanReadableMessage()) {
                     global $pagenow;
                     $message = 'Our website is currently undergoing scheduled maintenance. <br>This page will automatically reload when re-available.';
                 } else {
@@ -50,38 +45,39 @@ class MaintenanceMode_meets_Visitor {
         }
     }
     private static function DoWeShutOffThisPersonEvenThoughWeAreInMaintMode(): bool {
-        //return false;
+
         get_currentuserinfo();
         if (is_super_admin()) {
             return false; //allow admin to use site normally
         }
-        if (CurrentUser::IsStStaff()) {
-            return false;
-        }
-        //jjr better login detection -begin-
-        # Motivation:
-        # 1) handle case of wp-admin/page=update.php?ILoveHacking&blah=wp-login.php
-        # 2) On standard wpengine.com multi-site install, could not login as site admin while in maint mode
-        #if ($wpdb->blogid == 1 && $this->urlend('wp-login.php')) return; //I told you *not* to log out, but you did anyway. duh!
-        global $pagenow;
-        if (is_multisite()) {
-            global $wpdb;
-            // restore this logic once the switch isn't at every site
-            // $isAtRootLogin = ($wpdb->blogid == 1 && $pagenow == 'wp-login.php');
-            $isAtRootLogin = ($pagenow == 'wp-login.php');
-        } else {
-            $isAtRootLogin = ($pagenow == 'wp-login.php');
-        }
-        if ($isAtRootLogin) {
-            return false; //I told you *not* to log out, but you did anyway. duh!
-        }
         return true;
+//        if (CurrentUser::IsStStaff()) {
+//            return false;
+//        }
+//        //jjr better login detection -begin-
+//        # Motivation:
+//        # 1) handle case of wp-admin/page=update.php?ILoveHacking&blah=wp-login.php
+//        # 2) On standard wpengine.com multi-site install, could not login as site admin while in maint mode
+//        #if ($wpdb->blogid == 1 && $this->urlend('wp-login.php')) return; //I told you *not* to log out, but you did anyway. duh!
+//        global $pagenow;
+//        if (is_multisite()) {
+//            global $wpdb;
+//            // restore this logic once the switch isn't at every site
+//            // $isAtRootLogin = ($wpdb->blogid == 1 && $pagenow == 'wp-login.php');
+//            $isAtRootLogin = ($pagenow == 'wp-login.php');
+//        } else {
+//            $isAtRootLogin = ($pagenow == 'wp-login.php');
+//        }
+//        if ($isAtRootLogin) {
+//            return false; //I told you *not* to log out, but you did anyway. duh!
+//        }
+//        return true;
     }
 
-    private static function urlend($end) {
-        return (substr($_SERVER['REQUEST_URI'], strlen($end)*-1) == $end) ? true : false;
+    private static function urlend($end): bool {
+        return substr($_SERVER['REQUEST_URI'], strlen($end)*-1) == $end;
     }
-    private static function doesDeserveHUmanReadableMessage(): bool {
+    private static function doesDeserveHumanReadableMessage(): bool {
         return (! self::urlend('feed/') && ! self::urlend('trackback/') && ! self::urlend('xmlrpc.php'));
     }
 }

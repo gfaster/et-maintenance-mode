@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace EtFramework19\MaintenanceMode\Models;
+//namespace MaintenanceMode\Models;
 class MaintenanceMode_Model {
 
     public static function IsInMaintenanceMode(): bool {
