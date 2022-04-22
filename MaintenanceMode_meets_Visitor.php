@@ -50,6 +50,9 @@ class MaintenanceMode_meets_Visitor {
         if (is_super_admin()) {
             return false; //allow admin to use site normally
         }
+        if(class_exists('WP_CLI')) {
+            return false; //being accessed from WP_CLI
+        }
         return true;
 //        if (CurrentUser::IsStStaff()) {
 //            return false;
